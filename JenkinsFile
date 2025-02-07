@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'jenkins/jenkins:lts'
+            args '--user root'
+        }
+    }
     stages {
         stage('Clonage du dépôt GitHub') {
             steps {
