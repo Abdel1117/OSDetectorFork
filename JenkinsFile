@@ -1,25 +1,21 @@
 pipeline {
-    agent {
-        docker {
-            image 'jenkins/jenkins:lts'
-            args '--user root'
-        }
-    }
+    agent any
     stages {
         stage('Clonage du dépôt GitHub') {
             steps {
                 git branch: 'dev', url: "https://github.com/Abdel1117/OSDetectorFork"
             }
         }
-        stage("Installation de python 3") {
+        stage('Exécution dans Docker') {
             steps {
-                sh 'apt-get update'
-                sh 'apt-get install -y python3'
-            }
-        }
-        stage("Installation de pip") {
-            steps {
-                sh 'apt-get install -y python3-pip'
+                script {
+                    // Remplacez 'custom-jenkins' par l'image souhaitée
+                    docker.image('custom-jenkins').inside('--user root') {
+                        sh 'apt-get update'
+                        sh 'apt-get install -y python3 python3-pip'
+                        // Autres commandes...
+                    }
+                }
             }
         }
     }
