@@ -1,17 +1,28 @@
 pipeline {
-    agent any 
-    stages {
-        stage('Stage 1') {
-            steps {
-                echo 'Hello world!' 
+    agent any
+        stages {
+            stage('Clonage du dépôt GitHub') {
+                steps {
+                    git branch: dev, url : "https://github.com/Abdel1117/OSDetectorFork"
+                    }
+                }
+        }
+        stages{
+            stage("Installation de python 3")
+            {
+                steps{
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install python3'
+                }
             }
         }
-    }
-    post {
-        always {
-            mail to: 'abderahmane.adjali@live.fr',
-                 subject: "Pipeline ${currentBuild.fullDisplayName}",
-                 body: "Pipeline ${currentBuild.fullDisplayName} completed with status ${currentBuild.currentResult}"
+        stage{
+            stage("Installation de pip")
+            {
+                steps{
+                    sh 'sudo apt-get install python3-pip'
+                }
+            }
         }
-    }
+        
 }
