@@ -1,0 +1,17 @@
+pipeline {
+    agent any 
+    stages {
+        stage('Stage 1') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
+    }
+    post {
+        always {
+            mail to: 'abderahmane.adjali@live.fr',
+                 subject: "Pipeline ${currentBuild.fullDisplayName}",
+                 body: "Pipeline ${currentBuild.fullDisplayName} completed with status ${currentBuild.currentResult}"
+        }
+    }
+}
