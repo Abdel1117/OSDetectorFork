@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.11" 
+
+# Commande pour exécuter le script
+script:
+  - python -m unittest discover  
+
+# Notifications (optionnelles)
+notifications:
+  email:
+    recipients:
+      - cedsurq@protonmail.com
+    on_success: always
+    on_failure: always
