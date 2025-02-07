@@ -1,28 +1,22 @@
 pipeline {
     agent any
-        stages {
-            stage('Clonage du dépôt GitHub') {
-                steps {
-                    git branch: dev, url : "https://github.com/Abdel1117/OSDetectorFork"
-                    }
-                }
-        }
-        stages{
-            stage("Installation de python 3")
-            {
-                steps{
-                    sh 'sudo apt-get update'
-                    sh 'sudo apt-get install python3'
-                }
+    stages {
+        stage('Clonage du dépôt GitHub') {
+            steps {
+                // Assure-toi de mettre la branche entre guillemets si c'est une chaîne
+                git branch: 'dev', url: "https://github.com/Abdel1117/OSDetectorFork"
             }
         }
-        stages{
-            stage("Installation de pip")
-            {
-                steps{
-                    sh 'sudo apt-get install python3-pip'
-                }
+        stage("Installation de python 3") {
+            steps {
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install python3'
             }
         }
-
+        stage("Installation de pip") {
+            steps {
+                sh 'sudo apt-get install python3-pip'
+            }
+        }
+    }
 }
